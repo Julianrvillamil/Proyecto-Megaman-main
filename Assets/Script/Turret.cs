@@ -66,9 +66,10 @@ public class Turret : MonoBehaviour
 
         gameObject.layer = 6;
         myAnim.SetBool("isDead", true);
-        SonidoDead();
         yield return new WaitForSeconds(1f);
         Destroy(this.gameObject);
+
+        SonidoDead();
     }
     public void SonidoDead()
     {
