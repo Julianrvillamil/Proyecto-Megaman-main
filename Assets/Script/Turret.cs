@@ -56,6 +56,7 @@ public class Turret : MonoBehaviour
     }
     IEnumerator destroy()
     {
+      
         gameObject.layer = 6;
         myAnim.SetBool("isDead", true);
         yield return new WaitForSeconds(1f);
