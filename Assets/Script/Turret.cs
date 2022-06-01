@@ -7,14 +7,20 @@ public class Turret : MonoBehaviour
     private bool isFiring = false;
     private Animator myAnim;
     private float proximoDisparo = 0f;
+
+    private new AudioSource audio;
+
     [SerializeField] float cadenciaDisparo = 1;
     [SerializeField] GameObject balaTorreta;
     [SerializeField] float vida = 5;
+
+    [SerializeField] AudioClip deadClip;
 
     // Start is called before the first frame update
     void Start()
     {
         myAnim = GetComponent<Animator>();
+        audio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -24,6 +30,7 @@ public class Turret : MonoBehaviour
         Debug.DrawRay(transform.position, Vector2.left * 15f, Color.red);
         isFiring = (ray.collider != null);
         Fire();
+
     }
     void Fire()
     {
@@ -56,10 +63,15 @@ public class Turret : MonoBehaviour
     }
     IEnumerator destroy()
     {
-      
+
         gameObject.layer = 6;
         myAnim.SetBool("isDead", true);
+        SonidoDead();
         yield return new WaitForSeconds(1f);
         Destroy(this.gameObject);
+    }
+    public void SonidoDead()
+    {
+        audio.PlayOneShot(deadClip);
     }
 }

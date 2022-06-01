@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     [SerializeField] float cadenciaDisparo = 1;
     private new AudioSource audio;
     [SerializeField] AudioClip clip;
+    [SerializeField] AudioClip jumpClip;
     private bool muerto = false;
     // Start is called before the first frame update
     void Start()
@@ -76,10 +77,13 @@ public class Player : MonoBehaviour
     }
     void Jump()
     {
-        if(isGrounded)
+
+        if (isGrounded)
         {   
             if(Input.GetKeyDown(KeyCode.Space))
             {
+
+                SonidoJump();
                 rb.AddForce(new Vector2(0, fuerzaSalto), ForceMode2D.Impulse);
                 //impulse añade una fuerza instantanea al rb usando la masa, miestras en force no es instantaneo, es decir se demora un poquita.
                 Debug.Log(isGrounded);
@@ -157,6 +161,10 @@ public class Player : MonoBehaviour
     public void SonidoDead()
     {
         audio.PlayOneShot(clip);
+    }
+    public void SonidoJump()
+    {
+        audio.PlayOneShot(jumpClip);
     }
 }
         //2dphysics.overlap.circle es una para detectar con que colisiona, pero vamos a utilizar physics.raycast(origen, dir, distancia) es una linea perpendicular, perfecta para saber si colisiona con el piso
